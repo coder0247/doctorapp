@@ -176,9 +176,10 @@ body {
 //     });
 //  }
 if (!navigator.serviceWorker.controller) {
-     navigator.serviceWorker.register("/service-worker.js").then(function(reg) {
+     navigator.serviceWorker.register("/pwabuilder-sw.js").then(function(reg) {
          console.log("Service worker has been registered for scope: " + reg.scope);
      });
  }
 </script>
+
 </body></html>
