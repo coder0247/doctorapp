@@ -161,7 +161,7 @@ body {
   <main role="main" class="inner cover">
     <h1 class="cover-heading">Progressive Web Application</h1>
     
-   <?php phpinfo(); ?>
+   <?php echo "PHP Version 7.2.1"; ?>
   </main>
 </div>
 
