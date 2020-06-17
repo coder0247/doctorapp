@@ -1,51 +1,44 @@
-self.addEventListener("install", function(event) {
-  event.waitUntil(preLoad());
+// Call Install Event
+self.addEventListener('install', e => {
+  console.log('Service Worker: Installed');
 });
 
-var preLoad = function(){
-  console.log("Installing web app");
-  return caches.open("offline").then(function(cache) {
-    console.log("caching index and important routes");
-    return cache.addAll(["/blog/", "/blog", "/", "/contact", "/resume", "/offline.html"]);
-  });
-};
-
-self.addEventListener("fetch", function(event) {
-  event.respondWith(checkResponse(event.request).catch(function() {
-    return returnFromCache(event.request);
-  }));
-  event.waitUntil(addToCache(event.request));
+// Call Activate Event
+self.addEventListener('activate', e => {
+  console.log('Service Worker: Activated');
+  // Remove unwanted caches
+  e.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cache => {
+          if (cache !== cacheName) {
+            console.log('Service Worker: Clearing Old Cache');
+            return caches.delete(cache);
+          }
+        })
+      );
+    })
+  );
 });
 
-var checkResponse = function(request){
-  return new Promise(function(fulfill, reject) {
-    fetch(request).then(function(response){
-      if(response.status !== 404) {
-        fulfill(response);
-      } else {
-        reject();
-      }
-    }, reject);
-  });
-};
-
-var addToCache = function(request){
-  return caches.open("offline").then(function (cache) {
-    return fetch(request).then(function (response) {
-      console.log(response.url + " was cached");
-      return cache.put(request, response);
-    });
-  });
-};
-
-var returnFromCache = function(request){
-  return caches.open("offline").then(function (cache) {
-    return cache.match(request).then(function (matching) {
-     if(!matching || matching.status == 404) {
-       return cache.match("offline.html");
-     } else {
-       return matching;
-     }
-    });
-  });
-};
+// Call Fetch Event
+self.addEventListener('fetch', e => {
+  console.log('Service Worker: Fetching');
+var req = e.request.clone();
+if (req.clone().method == "GET") {
+  e.respondWith(
+    fetch(e.request)
+      .then(res => {
+        // Make copy/clone of response
+        const resClone = res.clone();
+        // Open cahce
+        caches.open(cacheName).then(cache => {
+          // Add response to cache
+          cache.put(e.request, resClone);
+        });
+        return res;
+      })
+      .catch(err => caches.match(e.request).then(res => res))
+  );
+}
+});

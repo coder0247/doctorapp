@@ -1,13 +1,9 @@
 {
-  "name": "Doctor App",
-  "short_name": "Doctor app",
-  "theme_color": "#ffcbe4",
-  "background_color": "#fa99ca",
+  "short_name": "Doctor App",
+  "name": "DoctorApp",
+  "theme_color": "#563d7c",
+  "background_color": "#563d7c",
   "display": "standalone",
-  "scope": "/",
-  "start_url": ".",
-  "description": "Doctor online appointment booking",
-  "orientation": "any",
  "icons": [
   {
    "src": "\/assets\/android-icon-36x36.png",
@@ -45,5 +41,6 @@
    "type": "image\/png",
    "density": "4.0"
   }
- ]
+ ],
+  "start_url": "/"
 }
