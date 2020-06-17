@@ -3,7 +3,7 @@
   "name": "DoctorApp",
   "theme_color": "#563d7c",
   "background_color": "#563d7c",
-  "start_url": "/?utm_source=homescreen",
+  "start_url": "/",
   "scope" : "/",
   "display": "standalone",
  "icons": [
@@ -43,6 +43,5 @@
    "type": "image\/png",
    "density": "4.0"
   }
- ],
-
+ ]
 }
