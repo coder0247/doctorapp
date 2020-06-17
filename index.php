@@ -166,14 +166,19 @@ body {
 </div>
 
 <script type="text/javascript">
- if ('serviceWorker' in navigator) {
-    console.log("Will the service worker register?");
-    navigator.serviceWorker.register('service-worker.js')
-      .then(function(reg){
-        console.log("Yes, it did.");
-     }).catch(function(err) {
-        console.log("No it didn't. This happened:", err)
-    });
+//  if ('serviceWorker' in navigator) {
+//     console.log("Will the service worker register?");
+//     navigator.serviceWorker.register('service-worker.js')
+//       .then(function(reg){
+//         console.log("Yes, it did.");
+//      }).catch(function(err) {
+//         console.log("No it didn't. This happened:", err)
+//     });
+//  }
+if (!navigator.serviceWorker.controller) {
+     navigator.serviceWorker.register("/service-worker.js").then(function(reg) {
+         console.log("Service worker has been registered for scope: " + reg.scope);
+     });
  }
 </script>
 </body></html>
