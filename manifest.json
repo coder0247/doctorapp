@@ -5,7 +5,7 @@
   "background_color": "#fa99ca",
   "display": "standalone",
   "scope": "/",
-  "start_url": "https://doctor-pwa-app.herokuapp.com/",
+  "start_url": ".",
   "description": "Doctor online appointment booking",
   "orientation": "any",
  "icons": [
